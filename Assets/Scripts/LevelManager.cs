@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
     }
     public void PlayerLose(){
         Debug.Log("Lose");
-        Destroy(PlayerOBJ);
+        PlayerOBJ.SetActive(false);
         RestartLevel();
 
     }
