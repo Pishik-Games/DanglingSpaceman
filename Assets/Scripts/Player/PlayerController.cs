@@ -27,11 +27,11 @@ class PlayerController : MonoBehaviour{
                 rigidbody.AddForce(transform.up * 0.2f);
                 break;
             case InputMode.SpinRight:
-                rigidbody.AddTorque(-0.1f);
+                rigidbody.AddTorque(-0.05f);
                 rigidbody.AddForce(transform.up * 0.02f);
                 break;
             case InputMode.SpinLeft:
-                rigidbody.AddTorque(0.1f);
+                rigidbody.AddTorque(0.05f);
                 rigidbody.AddForce(transform.up * 0.02f);
                 break;
         }
