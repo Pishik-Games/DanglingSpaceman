@@ -3,6 +3,7 @@ using UnityEngine;
 
 class PlayerController : MonoBehaviour{
     
+    public LevelManager LevelManager;
     public GameObject rightPiss;
     public GameObject leftPiss;
     private Rigidbody2D rigidbody;
@@ -13,20 +14,25 @@ class PlayerController : MonoBehaviour{
     }
 
     private void Update(){
-        visual();
-        physical();
+        if (!LevelManager.GamePaused){
+            visual();
+            physical();
+                
+        }
     }
 
     private void physical(){
         switch(InputManager.currentMode){
             case InputMode.Forward:
-                rigidbody.AddForce(transform.up * 0.1f);
+                rigidbody.AddForce(transform.up * 0.2f);
                 break;
             case InputMode.SpinRight:
                 rigidbody.AddTorque(-0.1f);
+                rigidbody.AddForce(transform.up * 0.02f);
                 break;
             case InputMode.SpinLeft:
                 rigidbody.AddTorque(0.1f);
+                rigidbody.AddForce(transform.up * 0.02f);
                 break;
         }
     }
