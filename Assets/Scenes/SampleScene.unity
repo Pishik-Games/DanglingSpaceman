@@ -973,11 +973,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &765783672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6084575434679476464, guid: af0b50f9cac61cc4081c7fc1e9bc1e99, type: 3}
+  m_PrefabInstance: {fileID: 6084575435407462024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &765783673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6084575434679476465, guid: af0b50f9cac61cc4081c7fc1e9bc1e99, type: 3}
   m_PrefabInstance: {fileID: 6084575435407462024}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &765783677
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765783672}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &766403897
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,7 +2916,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6084575434679476466, guid: af0b50f9cac61cc4081c7fc1e9bc1e99, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    m_RemovedComponents:
+    - {fileID: 6084575434679476467, guid: af0b50f9cac61cc4081c7fc1e9bc1e99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af0b50f9cac61cc4081c7fc1e9bc1e99, type: 3}
 --- !u!1001 &8986582513761211659
 PrefabInstance:
