@@ -20,13 +20,13 @@ class PlayerController : MonoBehaviour{
     private void physical(){
         switch(InputManager.currentMode){
             case InputMode.Forward:
-                rigidbody.AddForce(transform.up * 0.4f);
+                rigidbody.AddForce(transform.up * 0.1f);
                 break;
             case InputMode.SpinRight:
-                rigidbody.AddTorque(-0.2f);
+                rigidbody.AddTorque(-0.1f);
                 break;
             case InputMode.SpinLeft:
-                rigidbody.AddTorque(0.2f);
+                rigidbody.AddTorque(0.1f);
                 break;
         }
     }
