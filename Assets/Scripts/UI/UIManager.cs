@@ -16,13 +16,13 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    
-    public void ShowCoins(int CoinsNumber){
-        var txt = ("Coins:"+CoinsNumber.ToString());
-        CoinCounter.text = txt ;
-        Debug.Log("ShowCoins");
+
+    public void ShowCoins(int CoinsNumber)
+    {
+        var txt = ("Coins:" + CoinsNumber.ToString());
+        CoinCounter.text = txt;
     }
 
 
