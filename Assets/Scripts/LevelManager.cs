@@ -29,11 +29,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         currentLevel = 0; // You must change this to Create Save and Load System
-        if (GamePaused)
-        {
-            Time.timeScale = 0.0f;
-            HandsUI.SetActive(true);
-        }
+        PauseGame();
 
     }
 
@@ -70,14 +66,15 @@ public class LevelManager : MonoBehaviour
     }
     public void LevelStart()
     {
+        HandsUI.SetActive(true);
         if ((Levels.Count - 1 >= currentLevel))
         {
             Levels[currentLevel].SetActive(true);
             Player.SpawnPlayerInStartPos();
-            HandsUI.SetActive(false);
         }
         if (InputManager.currentMode == InputMode.Nothing)
         {
+            HandsUI.SetActive(false);
             UnpauseGame();
         }
     }
@@ -124,6 +121,7 @@ public class LevelManager : MonoBehaviour
         {
             if (levelOBJ.name.Contains("level"))
             {
+                levelOBJ.gameObject.SetActive(false);
                 Levels.Add(levelOBJ.gameObject);
 
             }
