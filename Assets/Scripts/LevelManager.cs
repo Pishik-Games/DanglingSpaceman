@@ -5,7 +5,8 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public GameObject LevelBaseOBJ;
-    public List<GameObject> Levels;
+
+    private GameObject CurrentLevelObj;
     public GameObject HandsUI;
 
     public UIManager UIManager;
@@ -24,10 +25,10 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        FindLevels();
     }
     void Start()
     {
+        CurrentLevelObj = null;
         currentLevel = 0; // You must change this to Create Save and Load System
         PauseGame();
 
@@ -66,12 +67,12 @@ public class LevelManager : MonoBehaviour
     }
     public void LevelStart()
     {
-        HandsUI.SetActive(true);
-        if ((Levels.Count - 1 >= currentLevel))
+        if (CurrentLevelObj == null)
         {
-            Levels[currentLevel].SetActive(true);
-            Player.SpawnPlayerInStartPos();
+            HandsUI.SetActive(true);
+            SpawnLevel();
         }
+        Player.SpawnPlayerInStartPos();
         if (InputManager.currentMode == InputMode.Nothing)
         {
             HandsUI.SetActive(false);
@@ -89,8 +90,7 @@ public class LevelManager : MonoBehaviour
     }
     public void NextLevel()
     {
-
-        Levels[currentLevel].SetActive(false);
+        Destroy(CurrentLevelObj);
         currentLevel += 1;
     }
 
@@ -115,19 +115,6 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void FindLevels()
-    {
-        foreach (Transform levelOBJ in LevelBaseOBJ.transform)
-        {
-            if (levelOBJ.name.Contains("level"))
-            {
-                levelOBJ.gameObject.SetActive(false);
-                Levels.Add(levelOBJ.gameObject);
-
-            }
-
-        }
-    }
     public void AddNewCoins()
     {
         Coins += InThisLevelCurrentCoins;
@@ -136,9 +123,8 @@ public class LevelManager : MonoBehaviour
 
     public List<GameObject> FindCoinsInCurrentLevel()
     {
-        var level = Levels[currentLevel];
         List<GameObject> CoinSearchResault = new List<GameObject>();
-        var CoinParentObj = level.transform.Find("Coins");
+        var CoinParentObj = CurrentLevelObj.transform.Find("Coins");
         if (CoinParentObj != null)
         {
             foreach (Transform Coin in CoinParentObj.transform)
@@ -168,5 +154,14 @@ public class LevelManager : MonoBehaviour
         TempCoins.Clear();
         TempCoins = FindCoinsInCurrentLevel();
         ResetCoinsInCurrentLevel(TempCoins);
+    }
+    public void SpawnLevel()
+    {
+        var level = Resources.Load("Prefabs/Levels/level" + currentLevel) as GameObject;
+        if (level == null) return;// Player Finished All Levels or Cant Find Level
+        CurrentLevelObj = Instantiate(level);
+        CurrentLevelObj.transform.SetParent(LevelBaseOBJ.transform);
+        CurrentLevelObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        CurrentLevelObj.name = level.name;
     }
 }
