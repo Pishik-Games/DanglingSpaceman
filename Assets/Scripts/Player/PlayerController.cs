@@ -3,11 +3,12 @@ using UnityEngine;
 
 class PlayerController : MonoBehaviour{
     
-    public LevelManager LevelManager;
-    public GameObject rightPiss;
-    public GameObject leftPiss;
     private Rigidbody2D rigidbody;
 
+    public GameObject playerCloseMode;
+    public GameObject playerOpenMode;
+    public GameObject playerOpenRightMode;
+    public GameObject playerOpenLeftMode;
 
     private void Start(){
         rigidbody = GetComponent<Rigidbody2D>();
@@ -17,7 +18,6 @@ class PlayerController : MonoBehaviour{
         if (!LevelManager.GamePaused){
             visual();
             physical();
-                
         }
     }
 
@@ -41,20 +41,28 @@ class PlayerController : MonoBehaviour{
 
         switch(InputManager.currentMode){
             case InputMode.Forward:
-                rightPiss.SetActive(true);
-                leftPiss.SetActive(true);
+                playerCloseMode.SetActive(false);
+                playerOpenMode.SetActive(true);
+                playerOpenRightMode.SetActive(false);
+                playerOpenLeftMode.SetActive(false);
                 break;
             case InputMode.SpinRight:
-                rightPiss.SetActive(false);
-                leftPiss.SetActive(true);
+                playerCloseMode.SetActive(false);
+                playerOpenMode.SetActive(false);
+                playerOpenRightMode.SetActive(false);
+                playerOpenLeftMode.SetActive(true);
                 break;
             case InputMode.SpinLeft:
-                rightPiss.SetActive(true);
-                leftPiss.SetActive(false);
+                playerCloseMode.SetActive(false);
+                playerOpenMode.SetActive(false);
+                playerOpenRightMode.SetActive(true);
+                playerOpenLeftMode.SetActive(false);
                 break;
             case InputMode.Nothing:
-                rightPiss.SetActive(false);
-                leftPiss.SetActive(false);
+                playerCloseMode.SetActive(true);
+                playerOpenMode.SetActive(false);
+                playerOpenRightMode.SetActive(false);
+                playerOpenLeftMode.SetActive(false);
                 break;
         }
 
