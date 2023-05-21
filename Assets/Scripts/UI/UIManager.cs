@@ -7,7 +7,6 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI CoinCounter;
-    public Button RestartBtn;
     // Start is called before the first frame update
     void Start()
     {
