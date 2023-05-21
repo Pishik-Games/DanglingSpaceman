@@ -5,6 +5,7 @@ public class InputManager : MonoBehaviour
     public static InputMode currentMode;
     private void Update()
     {
+
         var rightInput = false;
         var leftInput = false;
         for (var i = 0; i < Input.touchCount; i++)
@@ -24,6 +25,8 @@ public class InputManager : MonoBehaviour
         else if (!rightInput && leftInput) currentMode = InputMode.SpinLeft;
         else if (rightInput && leftInput) currentMode = InputMode.Nothing;
         else if (!rightInput && !leftInput) currentMode = InputMode.Forward;
+
+
 
     }
 }

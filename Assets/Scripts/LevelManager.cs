@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> TempCoins = new List<GameObject>();
 
     public static bool GamePaused = true;
+    public static bool CanStartGame = true;
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,11 +29,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         currentLevel = 0; // You must change this to Create Save and Load System
-        if (GamePaused)
-        {
-            Time.timeScale = 0.0f;
-            HandsUI.SetActive(true);
-        }
+        PauseGame();
 
     }
 
@@ -42,7 +39,7 @@ public class LevelManager : MonoBehaviour
         SendCoinNumbers();
         if (GamePaused)
         {
-            if (InputManager.currentMode == InputMode.Nothing)
+            if (CanStartGame)
             {
                 LevelStart();
             }
@@ -55,42 +52,46 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Win");
         AddNewCoins();
         Player.DeSpawnPlayer();
+        PauseGame();
         NextLevel();
         //TODO WIN UI and Next Level 
     }
     public void PlayerLose()
     {
         Debug.Log("Lose");
-        PauseGame();
         Player.DeSpawnPlayer();
         ResetBtnOBJ.SetActive(true);
-
+        CanStartGame = false;
+        PauseGame();
     }
     public void LevelStart()
     {
-        UnpauseGame();
-        Levels[currentLevel].SetActive(true); // Start From Level 0
-        HandsUI.SetActive(false);
+        HandsUI.SetActive(true);
+        if ((Levels.Count - 1 >= currentLevel))
+        {
+            Levels[currentLevel].SetActive(true);
+            Player.SpawnPlayerInStartPos();
+        }
+        if (InputManager.currentMode == InputMode.Nothing)
+        {
+            HandsUI.SetActive(false);
+            UnpauseGame();
+        }
     }
     public void RestartLevel()
     {
+        CanStartGame = true;
+
         ResetBtnOBJ.SetActive(false);
         InThisLevelCurrentCoins = 0;
         ResetCoins();
         Player.SpawnPlayerInStartPos();
-        UnpauseGame();
     }
     public void NextLevel()
     {
 
         Levels[currentLevel].SetActive(false);
         currentLevel += 1;
-        if ((Levels.Count - 1 >= currentLevel))
-        {
-            Levels[currentLevel].SetActive(true);
-            Player.SpawnPlayerInStartPos();
-        }
-
     }
 
 
@@ -120,6 +121,7 @@ public class LevelManager : MonoBehaviour
         {
             if (levelOBJ.name.Contains("level"))
             {
+                levelOBJ.gameObject.SetActive(false);
                 Levels.Add(levelOBJ.gameObject);
 
             }
