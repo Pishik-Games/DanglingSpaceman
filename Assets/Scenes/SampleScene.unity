@@ -1800,6 +1800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80beffa791fd57b44ab7e28edb508e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerOBJ: {fileID: 1346498001}
   pispis: {fileID: 1274977416}
 --- !u!82 &1274977416
 AudioSource:
@@ -2604,7 +2605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1529748470
 Transform:
   m_ObjectHideFlags: 0

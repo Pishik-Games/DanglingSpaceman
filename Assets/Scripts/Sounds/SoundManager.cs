@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public GameObject PlayerOBJ;
     public AudioSource pispis;
     // Start is called before the first frame update
     void Start()
@@ -13,7 +14,7 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!LevelManager.GamePaused)
+        if (!LevelManager.GamePaused && PlayerOBJ.activeSelf)
         {
 
             if (!(InputManager.currentMode == InputMode.Nothing))

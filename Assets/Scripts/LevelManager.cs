@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> TempCoins = new List<GameObject>();
 
     public static bool GamePaused = true;
+    public static bool CanStartGame = true;
 
     // Start is called before the first frame update
     private void Awake()
@@ -42,7 +43,7 @@ public class LevelManager : MonoBehaviour
         SendCoinNumbers();
         if (GamePaused)
         {
-            if (InputManager.currentMode == InputMode.Nothing)
+            if (CanStartGame)
             {
                 LevelStart();
             }
@@ -55,42 +56,45 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Win");
         AddNewCoins();
         Player.DeSpawnPlayer();
+        PauseGame();
         NextLevel();
         //TODO WIN UI and Next Level 
     }
     public void PlayerLose()
     {
         Debug.Log("Lose");
-        PauseGame();
         Player.DeSpawnPlayer();
         ResetBtnOBJ.SetActive(true);
-
+        CanStartGame = false;
+        PauseGame();
     }
     public void LevelStart()
     {
-        UnpauseGame();
-        Levels[currentLevel].SetActive(true); // Start From Level 0
-        HandsUI.SetActive(false);
+        if ((Levels.Count - 1 >= currentLevel))
+        {
+            Levels[currentLevel].SetActive(true);
+            Player.SpawnPlayerInStartPos();
+            HandsUI.SetActive(false);
+        }
+        if (InputManager.currentMode == InputMode.Nothing)
+        {
+            UnpauseGame();
+        }
     }
     public void RestartLevel()
     {
+        CanStartGame = true;
+
         ResetBtnOBJ.SetActive(false);
         InThisLevelCurrentCoins = 0;
         ResetCoins();
         Player.SpawnPlayerInStartPos();
-        UnpauseGame();
     }
     public void NextLevel()
     {
 
         Levels[currentLevel].SetActive(false);
         currentLevel += 1;
-        if ((Levels.Count - 1 >= currentLevel))
-        {
-            Levels[currentLevel].SetActive(true);
-            Player.SpawnPlayerInStartPos();
-        }
-
     }
 
 
