@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     public static int InThisLevelCurrentCoins = 0;
 
     public static int Coins = 0;
-    public List<GameObject> TempCoins = new List<GameObject>();
+    private List<GameObject> TempCoins = new List<GameObject>();
 
     public static bool GamePaused = true;
     public static bool CanStartGame = true;
