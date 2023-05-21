@@ -2,42 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
-{
+public class SoundManager : MonoBehaviour{
     public AudioSource pispis;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!LevelManager.GamePaused)
-        {
-
-            if (!(InputManager.currentMode == InputMode.Nothing))
-            {
-                if (!pispis.isPlaying)
-                {
-                    PlayPisPis();
-                }
-            }
-            else
-            {
-                StopPispis();
-            }
-
+    void Update(){
+        if (LevelManager.GamePaused){
+            StopPispis();
+            return;
         }
+
+        if (InputManager.currentMode == InputMode.Nothing)
+            StopPispis();
+        else 
+            PlayPisPis();
+
     }
 
-    public void PlayPisPis()
-    {
+    public void PlayPisPis(){
+        if (pispis.isPlaying) return;
         pispis.Play();
-        Debug.Log("LOWLOW" + InputManager.currentMode);
     }
-    public void StopPispis()
-    {
+    public void StopPispis(){
+        if (!pispis.isPlaying) return;
         pispis.Pause();
     }
 }
