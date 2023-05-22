@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerOBJ = GameObject.Find("Player");
         PlayerStartPos = PlayerOBJ.transform.position;
     }
     public void SpawnPlayerInStartPos()
