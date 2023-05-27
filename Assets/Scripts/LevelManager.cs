@@ -69,9 +69,10 @@ public class LevelManager : MonoBehaviour
     {
         if (CurrentLevelObj == null)
         {
-            HandsUI.SetActive(true);
             SpawnLevel();
         }
+        
+        HandsUI.SetActive(true);
         Player.SpawnPlayerInStartPos();
         if (InputManager.currentMode == InputMode.Nothing)
         {
