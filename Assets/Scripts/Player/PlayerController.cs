@@ -15,7 +15,7 @@ class PlayerController : MonoBehaviour{
     }
 
     private void Update(){
-        if (!LevelManager.GamePaused){
+        if (MenuManager.GameState == GameState.Playing){
             visual();
             physical();
         }

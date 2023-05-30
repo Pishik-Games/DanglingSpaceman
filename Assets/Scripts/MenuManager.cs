@@ -14,10 +14,22 @@ class MenuManager : MonoBehaviour{
     public GameObject playgroundLayout;
     public GameObject reportLayout;
 
+    public static MenuManager instance { get; private set; }
+
     private void Start(){
+        instance = this;
         deactiveAll();
         showGameLogo(); // skipping Pishik Games logo becouse it shows with unity logo
     }
+
+    void Update(){
+        if(
+            MenuManager.GameState == GameState.WaitForPlayerFingers && 
+            InputManager.currentMode == InputMode.Nothing
+        ) startGame();
+    }
+
+
     private void showPishikGamesLogo(){} // TODO
     private void showGameLogo(){
         GameState = GameState.GameLogo;
@@ -33,16 +45,54 @@ class MenuManager : MonoBehaviour{
         deactiveAll();
         menuLayout.SetActive(true);
     } 
-    private void showSettings(){} // TODO
-    private void backFromSettings(){} // TODO
-    private void showLevelSelection(){} // TODO
-    private void selectLevel(int level){} // TODO
-    private void startGame(){} // TODO
-    private void onLost(){} // TODO
-    private void onWin(){} // TODO
-    private void onReplayClicked(){} // TODO
-    private void onNextLevelClicked(){} // TODO
-    private void onMenuSelectionClicked(){} // TODO
+    private void showSettings(){
+        GameState = GameState.Settings;
+        deactiveAll();
+        settingsLayout.SetActive(true);
+    }
+    private void backFromSettings(){
+        GameState = GameState.Menu;
+        deactiveAll();
+        menuLayout.SetActive(true);
+    }
+    private void showLevelSelection(){
+        GameState = GameState.LevelSelecction;
+        deactiveAll();
+        levelSelectionLayout.SetActive(true);
+
+        // TODO level selection callback and call selectLevel(level)
+    }
+    private void selectLevel(int level){
+        GameState = GameState.WaitForPlayerFingers;
+        deactiveAll();
+        playgroundLayout.SetActive(true);
+        LevelManager.instance.loadLevel(level);
+    } 
+    private void startGame(){
+        // automatically starts physic and everything
+        MenuManager.GameState = GameState.Playing; 
+    }
+    public void onLost(int level, int score){} // ignore
+    public void onWin(int level, int score){
+        GameState = GameState.ReportScreen;
+        deactiveAll();
+        reportLayout.SetActive(true);
+        // TODO pass report data to report layout to show 
+        // TODO set report click listeners
+    }
+    private void onReplayClicked(){
+        GameState = GameState.WaitForPlayerFingers;
+        LevelManager.instance.reload();
+    } 
+    private void onNextLevelClicked(){
+        GameState = GameState.WaitForPlayerFingers;
+        LevelManager.instance.loadNextLevel();
+    } 
+    private void onMenuSelectionClicked(){
+        GameState = GameState.Menu;
+        deactiveAll();
+        menuLayout.SetActive(true);
+    }
 
     private void deactiveAll(){
         // starsBackground.SetActive(false); // not this

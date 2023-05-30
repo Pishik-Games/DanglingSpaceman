@@ -3,126 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour{
-    public GameObject LevelBaseOBJ;
+    public GameObject levelParent;
+    public GameObject handsUI;
 
-    private GameObject CurrentLevelObj;
-    public GameObject HandsUI;
+    private GameObject levelGameObject = null;
 
-    public UIManager UIManager;
-    public Player Player;
-    public GameObject ResetBtnOBJ;
+    private int levelId;
+    private int earnedCoins = 0;
 
-    public static int currentLevel;
-    public static int InThisLevelCurrentCoins = 0;
+    public static LevelManager instance { get; private set; }
+    void Start(){ instance = this; }
 
-    public static int Coins = 0;
-    private List<GameObject> TempCoins = new List<GameObject>();
-
-    public static bool GamePaused = true;
-    public static bool CanStartGame = true;
-
-    void Start(){
-        CurrentLevelObj = null;
-        currentLevel = 0; // You must change this to Create Save and Load System
-        PauseGame();
+    void Update(){ 
+        handsUI.SetActive(MenuManager.GameState == GameState.WaitForPlayerFingers);
     }
 
-    void Update(){
-        SendCoinNumbers();
-        if (GamePaused && CanStartGame)
-                LevelStart();
-
+    public void loadLevel(int level){
+        if(levelGameObject) Destroy(levelGameObject);
+        levelGameObject = null;
+        levelId = level;
+        SpawnLevel();
+        MenuManager.GameState = GameState.WaitForPlayerFingers;
     }
 
-    public void PlayerWin(){
-        AddNewCoins();
-        Player.DeSpawnPlayer();
-        PauseGame();
-        NextLevel();
-        //TODO WIN UI and Next Level 
+    public void loadNextLevel(){ loadLevel(levelId + 1); }
+    public void reload(){ loadLevel(levelId); }
+
+    public void increaseCoin(){ earnedCoins++; }
+
+    public void playerWin(){
+        MenuManager.instance.onWin(levelId, earnedCoins);
+        earnedCoins = 0;
     }
 
-    public void PlayerLose(){
-        Player.DeSpawnPlayer();
-        ResetBtnOBJ.SetActive(true);
-        CanStartGame = false;
-        PauseGame();
-    }
-
-    public void LevelStart(){
-        if (CurrentLevelObj == null)
-            SpawnLevel();
-        
-        HandsUI.SetActive(true);
-        Player.SpawnPlayerInStartPos();
-        if (InputManager.currentMode == InputMode.Nothing){
-            HandsUI.SetActive(false);
-            UnpauseGame();
-        }
-    }
-
-    public void RestartLevel(){
-        CanStartGame = true;
-        ResetBtnOBJ.SetActive(false);
-        InThisLevelCurrentCoins = 0;
-        ResetCoins();
-        Player.SpawnPlayerInStartPos();
-    }
-
-    public void NextLevel(){
-        Destroy(CurrentLevelObj);
-        currentLevel += 1;
-    }
-
-    public void SendCoinNumbers(){
-        UIManager.ShowCoins(Coins);
-    }
-
-    public void PauseGame(){
-        GamePaused = true;
-        Time.timeScale = 0.0f;
-    }
-
-    public void UnpauseGame(){
-        GamePaused = false;
-        Time.timeScale = 1.0f;
-    }
-
-    public void AddNewCoins(){
-        Coins += InThisLevelCurrentCoins;
-        InThisLevelCurrentCoins = 0;
-    }
-
-    public List<GameObject> FindCoinsInCurrentLevel(){
-        List<GameObject> CoinSearchResault = new List<GameObject>();
-        var CoinParentObj = CurrentLevelObj.transform.Find("Coins");
-        if (CoinParentObj != null){
-            foreach (Transform Coin in CoinParentObj.transform){
-                if (Coin.gameObject.name.Contains("Coin"))
-                    CoinSearchResault.Add(Coin.gameObject);
-            }
-        }
-        return CoinSearchResault;
-    }
-
-    public void ResetCoinsInCurrentLevel(List<GameObject> Coins){
-        foreach (GameObject coin in Coins){
-            coin.SetActive(true);
-        }
-    }
-
-    public void ResetCoins(){
-        TempCoins.Clear();
-        TempCoins = FindCoinsInCurrentLevel();
-        ResetCoinsInCurrentLevel(TempCoins);
+    public void playerLose(){
+        MenuManager.instance.onLost(levelId, earnedCoins);
+        earnedCoins = 0;
+        reload();
     }
 
     public void SpawnLevel(){
-        var level = Resources.Load("Prefabs/Levels/level" + currentLevel) as GameObject;
+        var level = Resources.Load("Prefabs/Levels/level" + levelId) as GameObject;
         if (level == null) return;// Player Finished All Levels or Cant Find Level
-        CurrentLevelObj = Instantiate(level);
-        CurrentLevelObj.transform.SetParent(LevelBaseOBJ.transform);
-        CurrentLevelObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        CurrentLevelObj.name = level.name;
+        levelGameObject = Instantiate(level);
+        levelGameObject.transform.SetParent(levelParent.transform);
+        levelGameObject.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        levelGameObject.name = level.name;
     }
+
 }

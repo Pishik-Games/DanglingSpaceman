@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour{
     public AudioSource pispis;
 
     void Update(){
-        if (LevelManager.GamePaused){
+        if (MenuManager.GameState != GameState.Playing){
             StopPispis();
             return;
         }
