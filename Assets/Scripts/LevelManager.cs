@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
         if (levelGameObject) Destroy(levelGameObject);
         levelGameObject = null;
         levelId = level;
+        numberOfCoinsInLevel = 0;
         SpawnLevel();
         resetPlayerPosition();
         MenuManager.GameState = GameState.WaitForPlayerFingers;

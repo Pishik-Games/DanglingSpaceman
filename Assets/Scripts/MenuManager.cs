@@ -76,14 +76,17 @@ class MenuManager : MonoBehaviour
     public void loadLastUnlockedLevel()
     {
         Debug.Log("Loading next level");
-        selectLevel(0);// TODO load last played level from database
+        selectLevel(DB.loadLastUnlockedLevel());
     }
     public void selectLevel(int level)
     {
-        GameState = GameState.WaitForPlayerFingers;
-        deactiveAll();
-        playgroundLayout.SetActive(true);
-        LevelManager.instance.loadLevel(level);
+        if (level <= DB.loadLastUnlockedLevel())
+        {
+            GameState = GameState.WaitForPlayerFingers;
+            deactiveAll();
+            playgroundLayout.SetActive(true);
+            LevelManager.instance.loadLevel(level);
+        }
     }
     private void startGame()
     {
@@ -96,7 +99,10 @@ class MenuManager : MonoBehaviour
         GameState = GameState.ReportScreen;
         deactiveAll();
         reportLayout.SetActive(true);
+        DB.SetLevelData(level, score, allCoins);
+
         UIManager.ShowReportCoins(score.ToString() + "/" + allCoins.ToString());
+        UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
     }
     public void onReplayClicked()
     {
