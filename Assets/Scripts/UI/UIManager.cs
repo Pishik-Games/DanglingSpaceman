@@ -6,7 +6,9 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI CoinCounter;
+    public TextMeshProUGUI CoinCounterObj;
+    public TextMeshProUGUI reportMenuCoinCounterObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +20,15 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void ShowCoins(int CoinsNumber)
+    public void ShowCoins(string CoinsNumber)
     {
-        var txt = ("Coins:" + CoinsNumber.ToString());
-        CoinCounter.text = txt;
+        //var txt = ("Coins:" + CoinsNumber.ToString());
+        //CoinCounter.text = CoinsNumber;
+    }
+
+    public void ShowReportCoins(string earnedCoins)
+    {
+        reportMenuCoinCounterObj.text = earnedCoins;
     }
 
 
