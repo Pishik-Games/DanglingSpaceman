@@ -10,7 +10,11 @@ public class DB : MonoBehaviour
     private static string LevelKey = "Level";
     void Awake()
     {
-        PlayerPrefs.SetInt(LastUnlockedLevelKey, 0);
+        //PlayerPrefs.DeleteAll(); //TODO Remove This Just For Test
+        if (!PlayerPrefs.HasKey(LastUnlockedLevelKey))
+        {
+            PlayerPrefs.SetInt(LastUnlockedLevelKey, 0);
+        }
     }
     public static void SetLevelData(int LevelId, int CoinEarned, int AllCoinsInLevel)
     {
@@ -22,7 +26,6 @@ public class DB : MonoBehaviour
         else// if Save And Earn < All
         {
             PlayerPrefs.SetInt(LevelKey + LevelId.ToString(), PlayerPrefs.GetInt(LevelKey + LevelId) + CoinEarned);
-            PlayerPrefs.SetInt(CoinsKey, PlayerPrefs.GetInt(CoinsKey) + PlayerPrefs.GetInt(LevelKey + LevelId));
         }
 
         if (PlayerPrefs.GetInt(LastUnlockedLevelKey) == LevelId)
@@ -55,6 +58,23 @@ public class DB : MonoBehaviour
 
     public static int LoadNumberOfEarnedCoins()
     {
+        var Bool = true;
+        int Sum = 0;
+        var lvlID = 0;
+        while (Bool)
+        {
+            if (PlayerPrefs.HasKey(LevelKey + lvlID.ToString()))
+            {
+                Sum += PlayerPrefs.GetInt(LevelKey + lvlID.ToString());
+                lvlID++;
+            }
+            else
+            {
+                Bool = false;
+                break;
+            }
+        }
+        PlayerPrefs.SetInt(CoinsKey, Sum);
         return (PlayerPrefs.GetInt(CoinsKey));
     }
 

@@ -103,6 +103,7 @@ class MenuManager : MonoBehaviour
 
         UIManager.ShowReportCoins(score.ToString() + "/" + allCoins.ToString());
         UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
+        Debug.Log("onWin Called");
     }
     public void onReplayClicked()
     {
