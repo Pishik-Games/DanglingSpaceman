@@ -45,22 +45,26 @@ class MenuManager : MonoBehaviour{
         deactiveAll();
         menuLayout.SetActive(true);
     } 
-    private void showSettings(){
+    public void showSettings(){
         GameState = GameState.Settings;
         deactiveAll();
         settingsLayout.SetActive(true);
     }
-    private void backFromSettings(){
+    public void backFromSettings(){
         GameState = GameState.Menu;
         deactiveAll();
         menuLayout.SetActive(true);
     }
-    private void showLevelSelection(){
+    public void showLevelSelection(){
         GameState = GameState.LevelSelecction;
         deactiveAll();
         levelSelectionLayout.SetActive(true);
 
         // TODO level selection callback and call selectLevel(level)
+    }
+    public void loadNextLevel(){
+        Debug.Log("Loading next level");
+        selectLevel(0);// TODO load last played level from database
     }
     private void selectLevel(int level){
         GameState = GameState.WaitForPlayerFingers;
