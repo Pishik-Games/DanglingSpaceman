@@ -62,18 +62,18 @@ class MenuManager : MonoBehaviour{
 
         // TODO level selection callback and call selectLevel(level)
     }
-    public void loadNextLevel(){
+    public void loadLastUnlockedLevel(){
         Debug.Log("Loading next level");
         selectLevel(0);// TODO load last played level from database
     }
-    private void selectLevel(int level){
+    public void selectLevel(int level){
         GameState = GameState.WaitForPlayerFingers;
         deactiveAll();
         playgroundLayout.SetActive(true);
         LevelManager.instance.loadLevel(level);
     } 
     private void startGame(){
-        // automatically starts physic and everything
+        // automatically starts physics and everything
         MenuManager.GameState = GameState.Playing; 
     }
     public void onLost(int level, int score){} // ignore
@@ -81,18 +81,20 @@ class MenuManager : MonoBehaviour{
         GameState = GameState.ReportScreen;
         deactiveAll();
         reportLayout.SetActive(true);
-        // TODO pass report data to report layout to show 
-        // TODO set report click listeners
     }
-    private void onReplayClicked(){
+    public void onReplayClicked(){
         GameState = GameState.WaitForPlayerFingers;
+        deactiveAll();
+        playgroundLayout.SetActive(true);
         LevelManager.instance.reload();
     } 
-    private void onNextLevelClicked(){
+    public void onNextLevelClicked(){
         GameState = GameState.WaitForPlayerFingers;
+        deactiveAll();
+        playgroundLayout.SetActive(true);
         LevelManager.instance.loadNextLevel();
     } 
-    private void onMenuSelectionClicked(){
+    public void onMenuSelectionClicked(){
         GameState = GameState.Menu;
         deactiveAll();
         menuLayout.SetActive(true);
