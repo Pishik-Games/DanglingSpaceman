@@ -14,7 +14,7 @@ class PlayerController : MonoBehaviour{
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update(){
+    private void FixedUpdate(){
         if (MenuManager.GameState == GameState.Playing){
             visual();
             physical();
