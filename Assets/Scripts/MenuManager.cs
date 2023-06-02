@@ -52,6 +52,7 @@ class MenuManager : MonoBehaviour
         GameState = GameState.Menu;
         deactiveAll();
         menuLayout.SetActive(true);
+        UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
     }
     public void showSettings()
     {
@@ -64,12 +65,14 @@ class MenuManager : MonoBehaviour
         GameState = GameState.Menu;
         deactiveAll();
         menuLayout.SetActive(true);
+        UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
     }
     public void showLevelSelection()
     {
         GameState = GameState.LevelSelecction;
         deactiveAll();
         levelSelectionLayout.SetActive(true);
+        LevelSelection.instance.Refresh();
 
         // TODO level selection callback and call selectLevel(level)
     }
@@ -102,7 +105,6 @@ class MenuManager : MonoBehaviour
         DB.SetLevelData(level, score, allCoins);
 
         UIManager.ShowReportCoins(score.ToString() + "/" + allCoins.ToString());
-        UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
         Debug.Log("onWin Called");
     }
     public void onReplayClicked()
@@ -124,6 +126,7 @@ class MenuManager : MonoBehaviour
         GameState = GameState.Menu;
         deactiveAll();
         menuLayout.SetActive(true);
+        UIManager.ShowAllCoins(DB.LoadNumberOfEarnedCoins().ToString());
     }
 
     private void deactiveAll()
