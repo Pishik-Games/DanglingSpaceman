@@ -6,12 +6,11 @@ public class LevelManager : MonoBehaviour
 {
     public GameObject levelParent;
     public GameObject handsUI;
-    public GameObject playerEntry;
     public GameObject player;
 
     private GameObject levelGameObject = null;
 
-    private int levelId;
+    public int levelId;
     private int earnedCoins = 0;
     private int numberOfCoinsInLevel = 0;
 
@@ -30,22 +29,10 @@ public class LevelManager : MonoBehaviour
         levelId = level;
         numberOfCoinsInLevel = 0;
         SpawnLevel();
-        resetPlayerPosition();
+        Player.instance.SpawnPlayerInStartPos();
         MenuManager.GameState = GameState.WaitForPlayerFingers;
     }
 
-    private void resetPlayerPosition()
-    {
-        try
-        {
-            player.transform.position = playerEntry.transform.position;
-            player.transform.rotation = playerEntry.transform.rotation;
-            var rg = player.GetComponent<Rigidbody2D>();
-            rg.velocity = Vector2.zero;
-            rg.angularVelocity = 0;
-        }
-        catch { }
-    }
 
     public void loadNextLevel() { loadLevel(levelId + 1); }
     public void reload() { loadLevel(levelId); }

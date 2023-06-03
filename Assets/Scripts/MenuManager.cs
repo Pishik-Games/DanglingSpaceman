@@ -7,6 +7,9 @@ class MenuManager : MonoBehaviour
     public static GameState GameState = GameState.PishikGamesLogo;
     public UIManager UIManager;
 
+    public GameObject PlayerCamera;
+    public GameObject MenuCamera;
+
     public GameObject starsBackground;
     public GameObject pishikLogo;
     public GameObject gameLogo;
@@ -88,6 +91,8 @@ class MenuManager : MonoBehaviour
             GameState = GameState.WaitForPlayerFingers;
             deactiveAll();
             playgroundLayout.SetActive(true);
+            MenuCamera.SetActive(false);
+            PlayerCamera.SetActive(true);
             LevelManager.instance.loadLevel(level);
         }
     }
@@ -112,6 +117,8 @@ class MenuManager : MonoBehaviour
         GameState = GameState.WaitForPlayerFingers;
         deactiveAll();
         playgroundLayout.SetActive(true);
+        MenuCamera.SetActive(false);
+        PlayerCamera.SetActive(true);
         LevelManager.instance.reload();
     }
     public void onNextLevelClicked()
@@ -119,6 +126,8 @@ class MenuManager : MonoBehaviour
         GameState = GameState.WaitForPlayerFingers;
         deactiveAll();
         playgroundLayout.SetActive(true);
+        MenuCamera.SetActive(false);
+        PlayerCamera.SetActive(true);
         LevelManager.instance.loadNextLevel();
     }
     public void onMenuSelectionClicked()
@@ -139,6 +148,8 @@ class MenuManager : MonoBehaviour
         levelSelectionLayout.SetActive(false);
         playgroundLayout.SetActive(false);
         reportLayout.SetActive(false);
+        MenuCamera.SetActive(true);
+        PlayerCamera.SetActive(false);
     }
 }
 

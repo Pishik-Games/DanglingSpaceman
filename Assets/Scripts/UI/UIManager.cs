@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI CoinCounterObj;
     public TextMeshProUGUI reportMenuCoinCounterObj;
 
+    public Image PisPisBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,11 @@ public class UIManager : MonoBehaviour
     public void ShowReportCoins(string earnedCoins)
     {
         reportMenuCoinCounterObj.text = earnedCoins;
+    }
+
+    public void ShowPisPisBar(float PisPisGas)
+    {
+        PisPisBar.fillAmount = PisPisGas;
     }
 
 

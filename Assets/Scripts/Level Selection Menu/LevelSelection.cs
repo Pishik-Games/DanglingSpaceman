@@ -24,12 +24,12 @@ public class LevelSelection : MonoBehaviour
     { get; private set; }
     void Start()
     {
-        instance = this;
         Refresh();
     }
 
     void Awake()
     {
+        instance = this;
         selectButtons = GetComponentsInChildren<SelectButton>();
     }
 
