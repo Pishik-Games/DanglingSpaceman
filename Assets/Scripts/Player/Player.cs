@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float TotalPisPisGas = 1.0f;
+    public float TotalPisPisGas = 100.0f;
     private float CurrentPisPisGas = 1.0f;
     public GameObject PlayerOBJ;
     public Vector2 PlayerStartPos;
@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
 
         }
         catch { }
-
-        TotalPisPisGas = 1.0f;
         CurrentPisPisGas = TotalPisPisGas;
         UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas));
     }
@@ -61,15 +59,15 @@ public class Player : MonoBehaviour
             {
                 if (InputManager.currentMode == InputMode.Forward)
                 {
-                    CurrentPisPisGas = CurrentPisPisGas - TotalPisPisGas / 800.0f;
+                    CurrentPisPisGas = CurrentPisPisGas - 0.1f * Time.deltaTime;
 
                 }
                 else
                 {
-                    CurrentPisPisGas = CurrentPisPisGas - TotalPisPisGas / 1200.0f;
+                    CurrentPisPisGas = CurrentPisPisGas - 0.05f * Time.deltaTime;
                 }
 
-                UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas));
+                UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas / TotalPisPisGas));
             }
         }
 
