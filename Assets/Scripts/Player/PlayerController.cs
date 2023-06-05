@@ -3,6 +3,14 @@ using UnityEngine;
 
 class PlayerController : MonoBehaviour{
     
+    public const float FORWARD_ACCELERATION = 0.3f;
+    public const float TOP_SPEED = 1f;
+    public const float DRAG = 0.15f;
+
+    public const float ANG_ACCELERATION = 0.1f;
+    public const float TOP_ANG_SPEED = 200f;
+    public const float ANG_DRAG = 0.15f;
+
     private Rigidbody2D rigidbody;
 
     public GameObject playerCloseMode;
@@ -12,6 +20,8 @@ class PlayerController : MonoBehaviour{
 
     private void Start(){
         rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.drag = DRAG;
+        rigidbody.angularDrag = ANG_DRAG;
     }
 
     private void FixedUpdate(){
@@ -22,16 +32,22 @@ class PlayerController : MonoBehaviour{
     }
 
     private void physical(){
+        var speed = Vector2.Distance(Vector2.zero, rigidbody.velocity);
+        var angSpeed = rigidbody.angularVelocity;
+        angSpeed = angSpeed>0 ? angSpeed :-1 * angSpeed;//abs
         switch(InputManager.currentMode){
             case InputMode.Forward:
-                rigidbody.AddForce(transform.up * 0.2f);
+                if(speed + FORWARD_ACCELERATION > TOP_SPEED) return; // throttle cut off
+                rigidbody.AddForce(transform.up * FORWARD_ACCELERATION);
                 break;
             case InputMode.SpinRight:
-                rigidbody.AddTorque(-0.05f);
-                rigidbody.AddForce(transform.up * 0.02f);
+                if(angSpeed + ANG_ACCELERATION > TOP_ANG_SPEED) return; // throttle cut off
+                rigidbody.AddTorque(-1 * ANG_ACCELERATION);
+                rigidbody.AddForce(transform.up * 0.02f );
                 break;
             case InputMode.SpinLeft:
-                rigidbody.AddTorque(0.05f);
+                if(angSpeed + ANG_ACCELERATION > TOP_ANG_SPEED) return; // throttle cut off
+                rigidbody.AddTorque(ANG_ACCELERATION);
                 rigidbody.AddForce(transform.up * 0.02f);
                 break;
         }
