@@ -5,13 +5,18 @@ class PlayerController : MonoBehaviour{
     
     public const float FORWARD_ACCELERATION = 0.3f;
     public const float TOP_SPEED = 1f;
-    public const float DRAG = 0.15f;
+    public const float DRAG = 0.05f;
+
+    // increasing drag on gas goes out help turnning somehow (message ali for more info)
+    public const float BREAKING = 0.3f; 
 
     public const float ANG_ACCELERATION = 0.1f;
     public const float TOP_ANG_SPEED = 200f;
-    public const float ANG_DRAG = 0.15f;
+    public const float ANG_DRAG = 0.05f;
+
 
     private Rigidbody2D rigidbody;
+    //TODO: 
 
     public GameObject playerCloseMode;
     public GameObject playerOpenMode;
@@ -32,9 +37,12 @@ class PlayerController : MonoBehaviour{
     }
 
     private void physical(){
+
+        rigidbody.drag = InputManager.currentMode==InputMode.Forward ? BREAKING : DRAG; // for better turning
+
         var speed = Vector2.Distance(Vector2.zero, rigidbody.velocity);
         var angSpeed = rigidbody.angularVelocity;
-        angSpeed = angSpeed>0 ? angSpeed :-1 * angSpeed;//abs
+        angSpeed = angSpeed>0 ? angSpeed :-1 * angSpeed; // abs
         switch(InputManager.currentMode){
             case InputMode.Forward:
                 if(speed + FORWARD_ACCELERATION > TOP_SPEED) return; // throttle cut off
