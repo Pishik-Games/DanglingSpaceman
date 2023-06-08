@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 public class InputManager : MonoBehaviour
 {
@@ -7,9 +8,23 @@ public class InputManager : MonoBehaviour
 
     private bool rightInput = false;
     private bool leftInput = false;
+
+    #region WebGL is on moblie check 
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+
+    public bool isMoblie()
+    {
+#if !UNITY_EDITOR && UNITY_WEBGL
+        return IsMobile();
+#endif
+        return false;
+    }
+    #endregion
     private void Awake()
     {
-        if (Application.isMobilePlatform)
+        Debug.Log(isMoblie());
+        if (Application.isMobilePlatform || isMoblie())
         {
             inputType = "touch";
         }
@@ -17,6 +32,8 @@ public class InputManager : MonoBehaviour
         {
             inputType = "keyboard";
         }
+
+
     }
     private void Update()
     {
@@ -29,9 +46,6 @@ public class InputManager : MonoBehaviour
                 CheckKeyBoardInput();
 
                 break;
-            default:
-                CheckTouchInputs();
-                break;
         }
         if (rightInput && !leftInput) currentMode = InputMode.SpinRight;
         else if (!rightInput && leftInput) currentMode = InputMode.SpinLeft;
@@ -40,8 +54,6 @@ public class InputManager : MonoBehaviour
 
         rightInput = false;
         leftInput = false;
-
-
     }
     public void CheckTouchInputs()
     {
@@ -85,7 +97,7 @@ public class InputManager : MonoBehaviour
             leftInput = false;
             rightInput = false;
         }
-        Debug.Log(inputType + " " + rightInput + leftInput);
+        //Debug.Log(inputType + " " + rightInput + leftInput);
     }
 }
 
