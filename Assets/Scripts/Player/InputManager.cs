@@ -49,8 +49,8 @@ public class InputManager : MonoBehaviour
         }
         if (rightInput && !leftInput) currentMode = InputMode.SpinRight;
         else if (!rightInput && leftInput) currentMode = InputMode.SpinLeft;
-        else if (rightInput && leftInput) currentMode = InputMode.Nothing;
-        else if (!rightInput && !leftInput) currentMode = InputMode.Forward;
+        else if (!rightInput && !leftInput) currentMode = InputMode.Nothing;
+        else if (rightInput && leftInput) currentMode = InputMode.Forward;
 
         rightInput = false;
         leftInput = false;
@@ -67,9 +67,26 @@ public class InputManager : MonoBehaviour
             {
                 //touch is moving or not moving(but pressed)
                 Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
-                if (pos.x > 0) rightInput = true;
-                else leftInput = true;
+                if (pos.x > 1)
+                {
+                    rightInput = true;
+                }
+                else if (pos.x < -1)
+                {
+                    leftInput = true;
+                }
+                else
+                {
+                    rightInput = true;
+                    leftInput = true;
+                }
                 // Debug.Log("w2:" + w2 + " pos.x:" + pos.x);
+            }
+            else
+            {
+                rightInput = false;
+                leftInput = false;
+
             }
         }
 
