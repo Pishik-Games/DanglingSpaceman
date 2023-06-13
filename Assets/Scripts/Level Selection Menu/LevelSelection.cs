@@ -6,6 +6,9 @@ public class LevelSelection : MonoBehaviour
 {
     public int totalLevel = 0;
 
+    public int totalSession = 2;
+    public int lastSessionunlocked = 1;
+
     public int lastLevelUnlocked = 0;
 
     public SelectButton[] selectButtons;
@@ -47,7 +50,9 @@ public class LevelSelection : MonoBehaviour
 
     public void Refresh()
     {
+        //lastSessionunlocked = DB.loadLastSessionUnlocked();
         lastLevelUnlocked = DB.loadLastUnlockedLevel();
+
         totalPage = totalLevel / itemsInPage;
 
         int index = page * itemsInPage;
