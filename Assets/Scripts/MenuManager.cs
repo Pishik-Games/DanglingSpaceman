@@ -33,7 +33,7 @@ class MenuManager : MonoBehaviour
     {
         if (
             MenuManager.GameState == GameState.WaitForPlayerFingers &&
-            InputManager.currentMode == InputMode.Nothing
+            !(InputManager.currentMode == InputMode.Nothing)
         ) startGame();
     }
 

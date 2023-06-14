@@ -2,36 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DeadZone : MonoBehaviour
 {
-    public void WhenBorderTriggerEnter(Collider2D other, GameObject gameObject)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            gameObject.transform.position = Vector2.MoveTowards
-                (gameObject.transform.position,
-                    this.transform.position,
-                    0.1f * Time.deltaTime);
-            //gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.position);
+            LevelManager.instance.playerLose();
         }
-    }
-    public void WhenCenterTriggerEnter(Collider2D other, GameObject gameObject)
-    {
-        if (gameObject.tag == "Player")
-        {
-            var Animator = gameObject.GetComponent<Animator>();
-            Animator.Play("LostInBlackWhole");
-            StartCoroutine(WaitForSecondToSendLose());
-        }
-    }
-
-    IEnumerator WaitForSecondToSendLose()
-    {
-
-        Debug.Log("timer");
-        yield return new WaitForSeconds(1);
-        Debug.Log("Lose");
-        LevelManager.instance.playerLose();
     }
 }

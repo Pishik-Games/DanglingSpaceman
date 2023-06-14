@@ -64,8 +64,8 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5098375198096978079}
-        m_TargetAssemblyTypeName: DeadZone, Assembly-CSharp
+      - m_Target: {fileID: 721884208482040541}
+        m_TargetAssemblyTypeName: BlackWhole, Assembly-CSharp
         m_MethodName: WhenCenterTriggerEnter
         m_Mode: 0
         m_Arguments:
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5098375198096978072}
-  - component: {fileID: 5098375198096978079}
+  - component: {fileID: 721884208482040541}
   - component: {fileID: 5098375198096978078}
   - component: {fileID: -8644826390025799646}
   m_Layer: 6
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5098375198096978075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.19248569}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -118,7 +118,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5098375198096978079
+--- !u!114 &721884208482040541
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,8 +270,8 @@ MonoBehaviour:
   onTriggerStay:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5098375198096978079}
-        m_TargetAssemblyTypeName: DeadZone, Assembly-CSharp
+      - m_Target: {fileID: 721884208482040541}
+        m_TargetAssemblyTypeName: BlackWhole, Assembly-CSharp
         m_MethodName: WhenBorderTriggerEnter
         m_Mode: 0
         m_Arguments:

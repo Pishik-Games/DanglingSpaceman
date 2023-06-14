@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public float TotalPisPisGas = 100.0f;
     private float CurrentPisPisGas = 1.0f;
     public GameObject PlayerOBJ;
-    public Vector2 PlayerStartPos;
+    public Vector3 PlayerStartPos;
     public UIManager UIManager;
     public GameObject happyFace;
     public GameObject normalFace;
