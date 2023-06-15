@@ -54,15 +54,27 @@ public class SoundManager : MonoBehaviour
 
     public void PlayLoseSound()
     {
-        SoundEffects.PlayOneShot(GameOver);
+        if (SettingMenu.canPlaySound)
+        {
+            SoundEffects.PlayOneShot(GameOver);
+
+        }
     }
     public void PlayWinSound()
     {
-        SoundEffects.PlayOneShot(Win);
+        if (SettingMenu.canPlaySound)
+        {
+            SoundEffects.PlayOneShot(Win);
+
+        }
     }
     public void PlayBonceSound()
     {
-        SoundEffects.PlayOneShot(Bounce);
+        if (SettingMenu.canPlaySound)
+        {
+            SoundEffects.PlayOneShot(Bounce);
+
+        }
     }
 
     public void OnClickBackGroundMusic(bool canPlaySound)
