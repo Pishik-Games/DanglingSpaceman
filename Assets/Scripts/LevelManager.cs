@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     public void playerWin()
     {
         MenuManager.instance.onWin(levelId, earnedCoins, numberOfCoinsInLevel);
+        SoundManager.instance.PlayWinSound();
         earnedCoins = 0;
         numberOfCoinsInLevel = 0;
 
@@ -50,6 +51,7 @@ public class LevelManager : MonoBehaviour
     public void playerLose()
     {
         MenuManager.instance.onLost(levelId, earnedCoins);
+        SoundManager.instance.PlayLoseSound();
         earnedCoins = 0;
         numberOfCoinsInLevel = 0;
         reload();
