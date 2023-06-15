@@ -8,6 +8,7 @@ public class Bouncy : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            this.GetComponent<Animator>().Play("PlayerCollide");
             SoundManager.instance.PlayBonceSound();
         }
     }
