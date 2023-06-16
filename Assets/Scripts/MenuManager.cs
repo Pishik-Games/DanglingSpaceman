@@ -19,6 +19,8 @@ class MenuManager : MonoBehaviour
     public GameObject playgroundLayout;
     public GameObject reportLayout;
 
+    public Badge reportBadge;
+
     public static MenuManager instance
     { get; private set; }
 
@@ -110,7 +112,14 @@ class MenuManager : MonoBehaviour
         DB.SetLevelData(level, score, allCoins);
 
         UIManager.ShowReportCoins(score.ToString() + "/" + allCoins.ToString());
-        Debug.Log("onWin Called");
+
+        if(score < 2){
+            reportBadge.onBronze();
+        }else if(score < 3){
+            reportBadge.onSilver();
+        }else{
+            reportBadge.onGold();
+        }
     }
     public void onReplayClicked()
     {

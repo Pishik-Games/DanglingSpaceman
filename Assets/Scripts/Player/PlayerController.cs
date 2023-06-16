@@ -5,7 +5,7 @@ class PlayerController : MonoBehaviour
 {
 
     public const float FORWARD_ACCELERATION = 0.3f;
-    public const float TOP_SPEED = 1f;
+    public const float TOP_SPEED = 1.2f;
     public const float DRAG = 0.05f;//
 
     // increasing drag on gas goes out help turnning somehow (message ali for more info)
