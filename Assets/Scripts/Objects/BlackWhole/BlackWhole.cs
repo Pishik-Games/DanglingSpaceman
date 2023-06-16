@@ -31,7 +31,7 @@ public class BlackWhole : MonoBehaviour
     {
 
         Debug.Log("timer");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.9f); // Ali change this from 1 to 0.9f to fix visual glich
         Debug.Log("Lose");
         LevelManager.instance.playerLose();
         enable = true;
