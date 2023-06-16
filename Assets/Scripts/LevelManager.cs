@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
         levelId = level;
         numberOfCoinsInLevel = 0;
         SpawnLevel();
-        Player.instance.SpawnPlayerInStartPos();
+        Player.instance.SpawnPlayerInStartPos(level);
         MenuManager.GameState = GameState.WaitForPlayerFingers;
     }
 

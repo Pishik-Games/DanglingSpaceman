@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas));
 
     }
-    public void SpawnPlayerInStartPos()
+    public void SpawnPlayerInStartPos(int level)
     {
         try
         {
@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
 
         }
         catch { }
+        TotalPisPisGas = DB.getLevelPisPis(level);
         CurrentPisPisGas = TotalPisPisGas;
         UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas));
     }
@@ -140,7 +141,6 @@ public class Player : MonoBehaviour
                 {
                     CurrentPisPisGas = CurrentPisPisGas - 0.05f * Time.deltaTime;
                 }
-
                 UIManager.ShowPisPisBar(Mathf.Clamp01(CurrentPisPisGas / TotalPisPisGas));
             }
         }

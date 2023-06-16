@@ -82,4 +82,26 @@ public class DB : MonoBehaviour
         return PlayerPrefs.GetInt(LevelKey + levelId.ToString());
     }
 
+
+    public static float getLevelPisPis(int level){
+
+        switch(level){
+            case 0: return 100f;
+            case 1: return 3f;
+            case 2: return 3.5f;
+            case 3: return 3f;
+            case 4: return 3f;
+            case 5: return 1.4f;
+            case 6: return 1.5f;
+            case 7: return 1.6f;
+            case 8: return 1.2f;
+            case 9: return 1.2f;
+            case 10: return 1.4f;
+            case 11: return 1.4f;
+            case 12: return 1.1f;
+            case 13: return 1.4f;
+            case 14: return 1.3f;
+            default: return 100f;
+        }
+    }
 }
