@@ -8175,6 +8175,7 @@ MonoBehaviour:
   Bounce: {fileID: 8300000, guid: f72b4ecae924cbd4c8212d540b9e387e, type: 3}
   Win: {fileID: 8300000, guid: ef867d37a4064eb43a73711627cd7a99, type: 3}
   GameOver: {fileID: 8300000, guid: 891ebca9d44b68b4e834154ed90d8dc5, type: 3}
+  CoinSound: {fileID: 8300000, guid: 1e1639c01377dc67cba7b0940e7b6208, type: 3}
 --- !u!82 &1274977416
 AudioSource:
   m_ObjectHideFlags: 0

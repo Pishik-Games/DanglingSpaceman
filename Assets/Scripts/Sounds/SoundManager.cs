@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip Bounce;
     public AudioClip Win;
     public AudioClip GameOver;
+    public AudioClip CoinSound;
     public static SoundManager instance { get; private set; }
 
     private void Awake()
@@ -73,6 +74,14 @@ public class SoundManager : MonoBehaviour
         if (SettingMenu.canPlaySound)
         {
             SoundEffects.PlayOneShot(Bounce);
+
+        }
+    }
+    public void PlayCoinSound()
+    {
+        if (SettingMenu.canPlaySound)
+        {
+            SoundEffects.PlayOneShot(CoinSound);
 
         }
     }
