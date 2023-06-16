@@ -13,6 +13,10 @@ class MenuManager : MonoBehaviour
     public GameObject starsBackground;
     public GameObject pishikLogo;
     public GameObject gameLogo;
+    public GameObject tutorial;
+    public GameObject tutorial_part1;
+    public GameObject tutorial_part2;
+    public GameObject tutorial_part3;
     public GameObject menuLayout;
     public GameObject settingsLayout;
     public GameObject levelSelectionLayout;
@@ -46,12 +50,37 @@ class MenuManager : MonoBehaviour
         GameState = GameState.GameLogo;
         deactiveAll();
         gameLogo.SetActive(true);
-        Utilities.setTimeout(this, () =>
-        {
+        Utilities.setTimeout(this, () => {
             // skipping Pishik Games logo becouse it shows with unity logo
-            showMainMenu();
+            showTutorial();
         }, 2);
     }
+    private void showTutorial() {
+
+        //TODO check if this is not fies
+
+        GameState = GameState.Tutorial;
+        deactiveAll();
+        tutorial.SetActive(true);
+
+        tutorial_part1.SetActive(true);
+        tutorial_part2.SetActive(false);
+        tutorial_part3.SetActive(false);
+        Utilities.setTimeout(this, () => {
+            // skipping Pishik Games logo becouse it shows with unity logo
+            tutorial_part1.SetActive(false);
+            tutorial_part2.SetActive(true);
+            Utilities.setTimeout(this, () => {
+                // skipping Pishik Games logo becouse it shows with unity logo
+                tutorial_part2.SetActive(false);
+                tutorial_part3.SetActive(true);
+                Utilities.setTimeout(this, () => {
+                    // skipping Pishik Games logo becouse it shows with unity logo
+                    showMainMenu();
+                }, 2f);
+            }, 2f);
+        }, 2f);
+    } // TODO
     private void showMainMenu()
     {
         GameState = GameState.Menu;
@@ -152,6 +181,7 @@ class MenuManager : MonoBehaviour
         // starsBackground.SetActive(false); // not this
         pishikLogo.SetActive(false);
         gameLogo.SetActive(false);
+        tutorial.SetActive(false);
         menuLayout.SetActive(false);
         settingsLayout.SetActive(false);
         levelSelectionLayout.SetActive(false);
@@ -166,6 +196,7 @@ enum GameState
 {
     PishikGamesLogo,
     GameLogo,
+    Tutorial,
     Menu,
     Settings,
     LevelSelecction,
