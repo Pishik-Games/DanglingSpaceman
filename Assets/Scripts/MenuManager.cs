@@ -52,35 +52,28 @@ class MenuManager : MonoBehaviour
         gameLogo.SetActive(true);
         Utilities.setTimeout(this, () => {
             // skipping Pishik Games logo becouse it shows with unity logo
-            showTutorial();
+            showMainMenu();
         }, 2);
     }
-    private void showTutorial() {
-
-        //TODO check if this is not fies
-
+    int tutorialPart = 0;
+    public void showTutorial() {
         GameState = GameState.Tutorial;
         deactiveAll();
         tutorial.SetActive(true);
 
-        tutorial_part1.SetActive(true);
+        tutorial_part1.SetActive(false);
         tutorial_part2.SetActive(false);
         tutorial_part3.SetActive(false);
-        Utilities.setTimeout(this, () => {
-            // skipping Pishik Games logo becouse it shows with unity logo
-            tutorial_part1.SetActive(false);
-            tutorial_part2.SetActive(true);
-            Utilities.setTimeout(this, () => {
-                // skipping Pishik Games logo becouse it shows with unity logo
-                tutorial_part2.SetActive(false);
-                tutorial_part3.SetActive(true);
-                Utilities.setTimeout(this, () => {
-                    // skipping Pishik Games logo becouse it shows with unity logo
-                    showMainMenu();
-                }, 2f);
-            }, 2f);
-        }, 2f);
-    } // TODO
+
+        tutorialPart++;
+
+        switch(tutorialPart) {
+            case 1: tutorial_part1.SetActive(true); break;
+            case 2: tutorial_part2.SetActive(true); break;
+            case 3: tutorial_part3.SetActive(true); break;
+            case 4: selectLevel(0); tutorialPart = 0; break;
+        }
+    }
     private void showMainMenu()
     {
         GameState = GameState.Menu;
@@ -112,8 +105,11 @@ class MenuManager : MonoBehaviour
     }
     public void loadLastUnlockedLevel()
     {
-        Debug.Log("Loading next level");
-        selectLevel(DB.loadLastUnlockedLevel());
+        if(DB.loadLastUnlockedLevel()==0){
+            showTutorial();
+        }else{
+            selectLevel(DB.loadLastUnlockedLevel());
+        }
     }
     public void selectLevel(int level)
     {
