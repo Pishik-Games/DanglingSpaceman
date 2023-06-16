@@ -7,19 +7,22 @@ public class Badge : MonoBehaviour{
     public GameObject silver;
     public GameObject bronze;
 
-    public void onGold(){
-        gold.SetActive(true);
+
+    public void clear(){
+        gold.SetActive(false);
         silver.SetActive(false);
         bronze.SetActive(false);
+    }
+    public void onGold(){
+        clear();
+        gold.SetActive(true);
     }
     public void onSilver(){
-        gold.SetActive(false);
+        clear();
         silver.SetActive(true);
-        bronze.SetActive(false);
     }
     public void onBronze(){
-        gold.SetActive(false);
-        silver.SetActive(false);
+        clear();
         bronze.SetActive(true);
     }
 

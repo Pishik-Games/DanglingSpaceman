@@ -78,4 +78,8 @@ public class DB : MonoBehaviour
         return (PlayerPrefs.GetInt(CoinsKey));
     }
 
+    public static int LoadLevelEarnedCoins(int levelId){
+        return PlayerPrefs.GetInt(LevelKey + levelId.ToString());
+    }
+
 }
