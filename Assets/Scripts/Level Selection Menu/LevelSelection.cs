@@ -66,15 +66,18 @@ public class LevelSelection : MonoBehaviour
 
                 // badge
                 var badge = selectButtons[i].gameObject.GetComponent<Badge>();
-                if(level>lastLevelUnlocked-1){
+                if (level > lastLevelUnlocked - 1)
+                {
                     badge.clear();
-                }else{
+                }
+                else
+                {
                     var score = DB.LoadLevelEarnedCoins(level);
                     if (score < 2) badge.onBronze();
                     else if (score < 3) badge.onSilver();
                     else badge.onGold();
                 }
-                
+
             }
             else
             {

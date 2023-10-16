@@ -78,14 +78,17 @@ public class DB : MonoBehaviour
         return (PlayerPrefs.GetInt(CoinsKey));
     }
 
-    public static int LoadLevelEarnedCoins(int levelId){
+    public static int LoadLevelEarnedCoins(int levelId)
+    {
         return PlayerPrefs.GetInt(LevelKey + levelId.ToString());
     }
 
 
-    public static float getLevelPisPis(int level){
+    public static float getLevelPisPis(int level)
+    {
 
-        switch(level){
+        switch (level)
+        {
             case 0: return 100f;
             case 1: return 3f;
             case 2: return 3.5f;

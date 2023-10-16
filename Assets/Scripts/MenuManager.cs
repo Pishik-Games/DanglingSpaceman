@@ -50,13 +50,15 @@ class MenuManager : MonoBehaviour
         GameState = GameState.GameLogo;
         deactiveAll();
         gameLogo.SetActive(true);
-        Utilities.setTimeout(this, () => {
+        Utilities.setTimeout(this, () =>
+        {
             // skipping Pishik Games logo becouse it shows with unity logo
             showMainMenu();
         }, 2);
     }
     int tutorialPart = 0;
-    public void showTutorial() {
+    public void showTutorial()
+    {
         GameState = GameState.Tutorial;
         deactiveAll();
         tutorial.SetActive(true);
@@ -67,7 +69,8 @@ class MenuManager : MonoBehaviour
 
         tutorialPart++;
 
-        switch(tutorialPart) {
+        switch (tutorialPart)
+        {
             case 1: tutorial_part1.SetActive(true); break;
             case 2: tutorial_part2.SetActive(true); break;
             case 3: tutorial_part3.SetActive(true); break;
@@ -105,10 +108,16 @@ class MenuManager : MonoBehaviour
     }
     public void loadLastUnlockedLevel()
     {
-        if(DB.loadLastUnlockedLevel()==0){
+        if (DB.loadLastUnlockedLevel() == 0)
+        {
             showTutorial();
-        }else{
-            selectLevel(DB.loadLastUnlockedLevel());
+        }
+        else
+        {
+            if (DB.loadLastUnlockedLevel() <= FindFirstObjectByType<LevelSelection>().totalLevel)
+            {
+                selectLevel(DB.loadLastUnlockedLevel());
+            }
         }
     }
     public void selectLevel(int level)
@@ -138,11 +147,16 @@ class MenuManager : MonoBehaviour
 
         UIManager.ShowReportCoins(score.ToString() + "/" + allCoins.ToString());
 
-        if(score < 2){
+        if (score < 2)
+        {
             reportBadge.onBronze();
-        }else if(score < 3){
+        }
+        else if (score < 3)
+        {
             reportBadge.onSilver();
-        }else{
+        }
+        else
+        {
             reportBadge.onGold();
         }
     }
