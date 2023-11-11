@@ -34,7 +34,12 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void loadNextLevel() { loadLevel(levelId + 1); }
+    public void loadNextLevel() { 
+        if (MenuManager.InstanceTotalLevel < levelId + 1){
+            loadLevel(levelId);
+            return;
+        }
+        loadLevel(levelId + 1); }
     public void reload() { loadLevel(levelId); }
 
     public void increaseCoin() { earnedCoins++; }

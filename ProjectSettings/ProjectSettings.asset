@@ -251,8 +251,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: Key/user.keystore'
-  AndroidKeyaliasName: pishik games
+  AndroidKeystoreName: D:/unity/projects/DanglingSpaceMan/Kelid dar 206/user.keystore
+  AndroidKeyaliasName: pishikgames
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

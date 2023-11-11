@@ -19,12 +19,15 @@ class MenuManager : MonoBehaviour
     public GameObject tutorial_part3;
     public GameObject menuLayout;
     public GameObject settingsLayout;
+    public GameObject AboutUsLayout;
+
     public GameObject levelSelectionLayout;
     public GameObject playgroundLayout;
     public GameObject reportLayout;
 
     public Badge reportBadge;
 
+    public static int InstanceTotalLevel;
     public static MenuManager instance
     { get; private set; }
 
@@ -77,7 +80,7 @@ class MenuManager : MonoBehaviour
             case 4: selectLevel(0); tutorialPart = 0; break;
         }
     }
-    private void showMainMenu()
+    public void showMainMenu()
     {
         GameState = GameState.Menu;
         deactiveAll();
@@ -89,6 +92,12 @@ class MenuManager : MonoBehaviour
         GameState = GameState.Settings;
         deactiveAll();
         settingsLayout.SetActive(true);
+    }
+    public void showAboutUs()
+    {
+        GameState = GameState.Settings;
+        deactiveAll();
+        AboutUsLayout.SetActive(true);
     }
     public void backFromSettings()
     {
@@ -106,17 +115,16 @@ class MenuManager : MonoBehaviour
 
         // TODO level selection callback and call selectLevel(level)
     }
-    public void loadLastUnlockedLevel()
-    {
-        if (DB.loadLastUnlockedLevel() == 0)
-        {
+    public void loadLastUnlockedLevel(){
+        if (DB.loadLastUnlockedLevel() == 0){
             showTutorial();
         }
-        else
-        {
-            if (DB.loadLastUnlockedLevel() <= FindFirstObjectByType<LevelSelection>().totalLevel)
-            {
+        else{
+            InstanceTotalLevel = levelSelectionLayout.GetComponent<LevelSelection>().totalLevel;
+            if (DB.loadLastUnlockedLevel() <= InstanceTotalLevel){
                 selectLevel(DB.loadLastUnlockedLevel());
+            }else{
+                selectLevel(InstanceTotalLevel );
             }
         }
     }
@@ -194,6 +202,7 @@ class MenuManager : MonoBehaviour
         tutorial.SetActive(false);
         menuLayout.SetActive(false);
         settingsLayout.SetActive(false);
+        AboutUsLayout.SetActive(false);
         levelSelectionLayout.SetActive(false);
         playgroundLayout.SetActive(false);
         reportLayout.SetActive(false);
