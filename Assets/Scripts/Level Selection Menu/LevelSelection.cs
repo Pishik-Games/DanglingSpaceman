@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class LevelSelection : MonoBehaviour
 {
-    public int totalLevel = 0;
 
     public int totalSession = 2;
     public int lastSessionunlocked = 1;
@@ -53,13 +53,13 @@ public class LevelSelection : MonoBehaviour
         //lastSessionunlocked = DB.loadLastSessionUnlocked();
         lastLevelUnlocked = DB.loadLastUnlockedLevel();
 
-        totalPage = totalLevel / itemsInPage;
+        totalPage = LevelManager.TotalLevel / itemsInPage;
 
         int index = page * itemsInPage;
         for (int i = 0; i < selectButtons.Length; i++)
         {
             int level = index + i + 1;
-            if (level <= totalLevel)
+            if (level <= LevelManager.TotalLevel)
             {
                 selectButtons[i].gameObject.SetActive(true);
                 selectButtons[i].Setup(level, level <= lastLevelUnlocked);

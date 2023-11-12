@@ -26,8 +26,6 @@ class MenuManager : MonoBehaviour
     public GameObject reportLayout;
 
     public Badge reportBadge;
-
-    public static int InstanceTotalLevel;
     public static MenuManager instance
     { get; private set; }
 
@@ -120,11 +118,10 @@ class MenuManager : MonoBehaviour
             showTutorial();
         }
         else{
-            InstanceTotalLevel = levelSelectionLayout.GetComponent<LevelSelection>().totalLevel;
-            if (DB.loadLastUnlockedLevel() <= InstanceTotalLevel){
+            if (DB.loadLastUnlockedLevel() <= LevelManager.TotalLevel){
                 selectLevel(DB.loadLastUnlockedLevel());
             }else{
-                selectLevel(InstanceTotalLevel );
+                selectLevel(LevelManager.TotalLevel );
             }
         }
     }
@@ -179,12 +176,17 @@ class MenuManager : MonoBehaviour
     }
     public void onNextLevelClicked()
     {
-        GameState = GameState.WaitForPlayerFingers;
-        deactiveAll();
-        playgroundLayout.SetActive(true);
-        MenuCamera.SetActive(false);
-        PlayerCamera.SetActive(true);
-        LevelManager.instance.loadNextLevel();
+            GameState = GameState.WaitForPlayerFingers;
+            deactiveAll();
+            playgroundLayout.SetActive(true);
+            MenuCamera.SetActive(false);
+            PlayerCamera.SetActive(true);
+            Debug.Log(LevelManager.TotalLevel +" + "+ DB.loadLastUnlockedLevel());
+        if (LevelManager.TotalLevel >= DB.loadLastUnlockedLevel()){
+            LevelManager.instance.loadNextLevel();
+        }else{
+            LevelManager.instance.loadLevel(DB.loadLastUnlockedLevel() - 1);
+        }
     }
     public void onMenuSelectionClicked()
     {

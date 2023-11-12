@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public int _totalLevel = 0;
+
+    public static int TotalLevel;
+    
     public GameObject levelParent;
     public GameObject handsUI;
     public GameObject player;
@@ -15,7 +20,9 @@ public class LevelManager : MonoBehaviour
     private int numberOfCoinsInLevel = 0;
 
     public static LevelManager instance { get; private set; }
-    void Awake() { instance = this; }
+    void Awake() { instance = this;
+        TotalLevel = _totalLevel;
+     }
 
     void Update()
     {
@@ -35,10 +42,6 @@ public class LevelManager : MonoBehaviour
 
 
     public void loadNextLevel() { 
-        if (MenuManager.InstanceTotalLevel < levelId + 1){
-            loadLevel(levelId);
-            return;
-        }
         loadLevel(levelId + 1); }
     public void reload() { loadLevel(levelId); }
 

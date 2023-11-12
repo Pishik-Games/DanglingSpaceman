@@ -1762,6 +1762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a874dc54ee35bb642ba06044c1305cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _totalLevel: 14
   levelParent: {fileID: 1586015853}
   handsUI: {fileID: 392258304}
   player: {fileID: 1346498001}
@@ -7541,7 +7542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623a519fb7d4f0c428f1b5063b0fa361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalLevel: 14
   totalSession: 2
   lastSessionunlocked: 1
   lastLevelUnlocked: 5
