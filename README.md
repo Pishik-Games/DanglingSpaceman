@@ -10,7 +10,7 @@
 
 
 </img>
-<a href="https://pishik-games.github.io/DanglingSpaceman/">
+<a href="https://pishik-games.github.io/DanglingSpaceman/" target="_blank">
 <img src="./Play.png"  width="200px"> 
 </a> 
 
